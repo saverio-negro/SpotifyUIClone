@@ -38,13 +38,9 @@ struct ImageLoaderView: View {
                     .allowsHitTesting(false)
             }
             .clipped()
-            .onTapGesture {
-                print("View Tapped")
-            }
     }
 }
 
 #Preview {
     ImageLoaderView()
-        .padding(50)
 }
