@@ -12,7 +12,8 @@ protocol ProductViewModelDelegate {
 }
 
 @MainActor
-class ProductViewModel: Observable {
+@Observable
+class ProductViewModel {
     var products: [Product] = []
     let delegate: ProductViewModelDelegate
     

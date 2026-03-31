@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import SwiftfulUI
+import SwiftfulRouting
 
 struct ContentView: View {
     
-    let userViewModel = UserViewModel(
+    @State var userViewModel = UserViewModel(
         delegate: MockUserViewModelDelegate(
             userDataSource: UserManager(service: UserNetworkService())))
     
     var body: some View {
-        VStack {
-            ScrollView {
+        NavigationStack {
+            VStack {
                 ForEach(userViewModel.users) { user in
                     Text("\(user.firstName) \(user.lastName)")
                 }

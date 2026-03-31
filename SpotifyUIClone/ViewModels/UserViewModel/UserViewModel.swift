@@ -12,7 +12,8 @@ protocol UserViewModelDelegate {
 }
 
 @MainActor
-class UserViewModel: Observable {
+@Observable
+class UserViewModel {
     var users: [User] = []
     let delegate: UserViewModelDelegate
     
