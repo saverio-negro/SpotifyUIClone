@@ -1,5 +1,5 @@
 //
-//  AppView.swift
+//  SignUpView.swift
 //  SpotifyUIClone
 //
 //  Created by Saverio Negro on 3/31/26.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct AppView: View {
+struct SignUpView: View {
     
     var body: some View {
-        
+        Text("Sign Up View")
     }
 }
 
 #Preview {
-    AppView()
+    SignUpView()
 }
