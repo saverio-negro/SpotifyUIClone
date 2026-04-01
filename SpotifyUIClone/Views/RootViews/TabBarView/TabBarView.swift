@@ -15,7 +15,7 @@ struct TabBarView: View {
                     "Home",
                     systemImage: "house",
                     content: {
-                        SpotifyHomeView()
+                        HomeView()
                     }
                 )
                 

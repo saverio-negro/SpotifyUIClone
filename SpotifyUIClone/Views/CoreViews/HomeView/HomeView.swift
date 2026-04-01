@@ -1,0 +1,52 @@
+//
+//  HomeView.swift
+//  SpotifyUIClone
+//
+//  Created by Saverio Negro on 3/31/26.
+//
+
+import SwiftUI
+
+struct HomeView: View {
+    
+    @State private var currentUser: User?
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                Color.spotifyBlack
+                    .ignoresSafeArea()
+                
+                VStack {
+                    header
+                        .padding(.leading, 16)
+                    VStack {
+                        ScrollView(.vertical) {
+                            LazyVStack(spacing: 10) {
+                                ForEach(0..<10) { _ in
+                                    Rectangle()
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 300)
+                                }
+                                .padding(16)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private var header: some View {
+        ProfileBarView(
+            currentUser: $currentUser,
+            topBarContent: {
+                CategoryCells(paddingAmount: 16)
+            }
+        )
+    }
+}
+
+#Preview {
+    HomeView()
+}
