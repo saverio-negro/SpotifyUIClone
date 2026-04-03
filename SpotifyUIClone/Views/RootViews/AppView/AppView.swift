@@ -9,8 +9,25 @@ import SwiftUI
 
 struct AppView: View {
     
-    @State var appState = AppStateViewModel()
+    @State private var appState: AppStateViewModel
     let container = DependencyContainer()
+    
+    init(appState: AppStateViewModel) {
+        
+        self._appState = State(wrappedValue: appState)
+        
+        let userManager = UserManager(service: UserNetworkService())
+        let productManager = ProductManager(service: ProductNetworkService())
+        
+        do {
+            try container.register(
+                UserManager.self, ProductManager.self,
+                dependencies: userManager, productManager
+            )
+        } catch {
+            print(error)
+        }
+    }
     
     var body: some View {
         AppViewBuilder(

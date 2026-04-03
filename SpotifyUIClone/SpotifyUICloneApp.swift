@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct SpotifyUICloneApp: App {
+    
+    let appState = AppStateViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            AppView()
+            AppView(appState: appState)
         }
     }
 }

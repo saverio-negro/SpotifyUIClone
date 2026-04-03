@@ -16,7 +16,7 @@ struct SearchView: View {
         self._searchViewModel = State(
             wrappedValue: SearchViewModel(
                 delegate: MockSearchHomeViewModelDelegate(
-                    userDataSource: container.dependencies["UserManager"] as! UserManager
+                    userDataSource: container.resolve(UserManager.self)!
                 )
             )
         )
@@ -68,6 +68,9 @@ struct SearchView: View {
                 }
             }
         }
+        .task {
+            await self.searchViewModel.loadUsers()
+        }
     }
     
     private var header: some View {
@@ -90,5 +93,10 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView(container: DependencyContainer())
+    
+    let userManager = UserManager(service: UserNetworkService())
+    let container = DependencyContainer()
+    container.register(UserManager.self, dependency: userManager)
+    
+    return SearchView(container: container)
 }
