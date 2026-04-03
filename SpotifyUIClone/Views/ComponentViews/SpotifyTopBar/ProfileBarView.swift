@@ -45,7 +45,8 @@ struct ProfileBarView<Content: View>: View {
     
     let homeViewModel = HomeViewModel(
         delegate: MockHomeViewModelDelegate(
-            userDataSource: UserManager(service: UserNetworkService())
+            userDataSource: UserManager(service: UserNetworkService()),
+            productDataSource: ProductManager(service: ProductNetworkService())
         )
     )
     

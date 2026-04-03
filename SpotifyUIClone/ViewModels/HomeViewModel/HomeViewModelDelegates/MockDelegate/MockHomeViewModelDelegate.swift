@@ -7,15 +7,21 @@
 
 import SwiftUI
 
-struct MockHomeViewModelDelegate<DS: DataSource>: HomeViewModelDelegate {
+struct MockHomeViewModelDelegate<UDS: DataSource, PDS: DataSource>: HomeViewModelDelegate {
     
-    let userDataSource: DS
+    let userDataSource: UDS
+    let productDataSource: PDS
     
-    init(userDataSource: DS) {
+    init(userDataSource: UDS, productDataSource: PDS) {
         self.userDataSource = userDataSource
+        self.productDataSource = productDataSource
     }
     
     func loadUsers() async -> [User] {
         return await (self.userDataSource.getData() as? [User]) ?? []
+    }
+    
+    func loadProducts() async -> [Product] {
+        return await (self.productDataSource.getData() as? [Product]) ?? []
     }
 }

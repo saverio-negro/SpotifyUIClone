@@ -11,11 +11,14 @@ struct HomeView: View {
     
     @State private var homeViewModel: HomeViewModel
     
-    init<DS: DataSource>(userManager: DS) {
+    init(
+        container: DependencyContainer
+    ) {
         self._homeViewModel = State(
             wrappedValue: HomeViewModel(
                 delegate: MockHomeViewModelDelegate(
-                    userDataSource: userManager
+                    userDataSource: container.dependencies["UserManager"] as! UserManager,
+                    productDataSource: container.dependencies["ProductManager"] as! ProductManager
                 )
             )
         )
@@ -61,8 +64,20 @@ struct HomeView: View {
     }
 }
 
+@MainActor
+class DependencyContainer {
+    
+    var dependencies: [String: Any] = [
+        "UserManager": UserManager(service: UserNetworkService()),
+        "ProductManager": ProductManager(service: ProductNetworkService())
+    ]
+}
+
 #Preview {
+    
+    let container = DependencyContainer()
+    
     HomeView(
-        userManager: UserManager(service: UserNetworkService())
+        container: container
     )
 }

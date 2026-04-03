@@ -12,11 +12,11 @@ struct SearchView: View {
     @State private var searchViewModel: SearchViewModel
     @State private var searchText: String = ""
     
-    init<DS: DataSource>(userManager: DS) {
+    init(container: DependencyContainer) {
         self._searchViewModel = State(
             wrappedValue: SearchViewModel(
                 delegate: MockSearchHomeViewModelDelegate(
-                    userDataSource: userManager
+                    userDataSource: container.dependencies["UserManager"] as! UserManager
                 )
             )
         )
@@ -90,7 +90,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView(userManager: UserManager(
-        service: UserNetworkService())
-    )
+    SearchView(container: DependencyContainer())
 }
