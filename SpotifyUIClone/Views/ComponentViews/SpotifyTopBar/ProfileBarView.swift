@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileBarView<Content: View>: View {
     
-    @Binding var currentUser: User?
+    let currentUser: User?
     @ViewBuilder var topBarContent: Content
     @State var showSettings: Bool = false
     
@@ -19,15 +19,14 @@ struct ProfileBarView<Content: View>: View {
             // Profile Image
             ZStack {
                 if let currentUser {
-//                    ImageLoaderView(imageURLStr: currentUser.image)
-//                        .background(Color.spotifyWhite)
-//                        .clipShape(Circle())
-//                        .onTapGesture {
-//                            showSettings = true
-//                        }
+                    ImageLoaderView(imageURLStr: currentUser.image)
+                        .background(Color.spotifyWhite)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            showSettings = true
+                        }
                     
                 }
-                Circle()
             }
             .frame(width: 35, height: 35)
             .shadow(color: .spotifyBlack, radius: 5, x: 5)
@@ -44,20 +43,14 @@ struct ProfileBarView<Content: View>: View {
 
 #Preview {
     
-    @Bindable var userViewModel = HomeViewModel(
+    let homeViewModel = HomeViewModel(
         delegate: MockHomeViewModelDelegate(
             userDataSource: UserManager(service: UserNetworkService())
         )
     )
     
-    let userBinding = Binding {
-        return userViewModel.users.first
-    } set: { _ in
-       
-    }
-
     ProfileBarView(
-        currentUser: userBinding,
+        currentUser: homeViewModel.users.first,
         topBarContent: {
             Text("Home")
                 .font(.title)
@@ -67,6 +60,6 @@ struct ProfileBarView<Content: View>: View {
         }
     )
     .task {
-        await userViewModel.loadUsers()
+        await homeViewModel.loadUsers()
     }
 }

@@ -9,13 +9,15 @@ import SwiftUI
 
 struct TabBarView: View {
     
+    let userManager: UserManager
+    
     var body: some View {
             TabView {
                 Tab(
                     "Home",
                     systemImage: "house",
                     content: {
-                        HomeView()
+                        HomeView(userManager: userManager)
                     }
                 )
                 
@@ -23,7 +25,7 @@ struct TabBarView: View {
                     "Search",
                     systemImage: "magnifyingglass",
                     content: {
-                        SearchView()
+                        SearchView(userManager: userManager)
                     }
                 )
                 
@@ -48,5 +50,7 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView()
+    TabBarView(
+        userManager: UserManager(service: UserNetworkService())
+    )
 }

@@ -9,7 +9,17 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State private var currentUser: User?
+    @State private var homeViewModel: HomeViewModel
+    
+    init<DS: DataSource>(userManager: DS) {
+        self._homeViewModel = State(
+            wrappedValue: HomeViewModel(
+                delegate: MockHomeViewModelDelegate(
+                    userDataSource: userManager
+                )
+            )
+        )
+    }
     
     var body: some View {
         NavigationStack {
@@ -36,11 +46,14 @@ struct HomeView: View {
                 }
             }
         }
+        .task {
+            await homeViewModel.loadUsers()
+        }
     }
     
     private var header: some View {
         ProfileBarView(
-            currentUser: $currentUser,
+            currentUser: homeViewModel.users.first,
             topBarContent: {
                 CategoryCells(paddingAmount: 16)
             }
@@ -49,5 +62,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(
+        userManager: UserManager(service: UserNetworkService())
+    )
 }

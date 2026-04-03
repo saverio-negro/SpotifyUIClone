@@ -40,12 +40,13 @@ struct AppViewBuilder<TabBarView: View, OnboardingView: View>: View {
 struct AppView: View {
     
     @State var appState = AppStateViewModel()
+    let userManager = UserManager(service: UserNetworkService())
     
     var body: some View {
         AppViewBuilder(
             hasCompletedOnboarding: appState.isLoggedIn,
             tabBarView: {
-                TabBarView()
+                TabBarView(userManager: userManager)
             },
             onboardingView: {
                 WelcomeView()

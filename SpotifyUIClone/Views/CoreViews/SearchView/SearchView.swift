@@ -9,8 +9,18 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State private var currentUser: User?
+    @State private var searchViewModel: SearchViewModel
     @State private var searchText: String = ""
+    
+    init<DS: DataSource>(userManager: DS) {
+        self._searchViewModel = State(
+            wrappedValue: SearchViewModel(
+                delegate: MockSearchHomeViewModelDelegate(
+                    userDataSource: userManager
+                )
+            )
+        )
+    }
     
     var body: some View {
         NavigationStack {
@@ -62,7 +72,7 @@ struct SearchView: View {
     
     private var header: some View {
         ProfileBarView(
-            currentUser: $currentUser) {
+            currentUser: searchViewModel.users.first) {
                 HStack {
                     Text("Home")
                         .font(.title)
@@ -80,5 +90,7 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView()
+    SearchView(userManager: UserManager(
+        service: UserNetworkService())
+    )
 }
