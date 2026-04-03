@@ -23,11 +23,12 @@ struct TabBarView: View {
                     "Search",
                     systemImage: "magnifyingglass",
                     content: {
+                        SearchView()
                     }
                 )
                 
                 Tab(
-                    "Search",
+                    "Your Library",
                     systemImage: "books.vertical",
                     content: {
                     }
@@ -42,6 +43,7 @@ struct TabBarView: View {
                 )
             }
             .tint(.spotifyWhite)
+            .toolbarVisibility(.hidden, for: .navigationBar)
     }
 }
 

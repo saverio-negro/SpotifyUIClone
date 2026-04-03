@@ -19,6 +19,7 @@ struct HomeView: View {
                 
                 VStack {
                     header
+                        .padding(.top, 10)
                         .padding(.leading, 16)
                     VStack {
                         ScrollView(.vertical) {

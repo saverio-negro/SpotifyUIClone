@@ -1,5 +1,5 @@
 //
-//  UserViewModel.swift
+//  HomeViewModel.swift
 //  SpotifyUIClone
 //
 //  Created by Saverio Negro on 3/30/26.
@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-protocol UserViewModelDelegate {
+protocol HomeViewModelDelegate {
     func loadUsers() async -> [User]
 }
 
 @MainActor
 @Observable
-class UserViewModel {
+class HomeViewModel {
     var users: [User] = []
-    let delegate: UserViewModelDelegate
+    let delegate: HomeViewModelDelegate
     
-    init(delegate: UserViewModelDelegate) {
+    init(delegate: HomeViewModelDelegate) {
         self.delegate = delegate
     }
     

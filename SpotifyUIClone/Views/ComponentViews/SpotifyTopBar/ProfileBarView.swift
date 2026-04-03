@@ -44,8 +44,8 @@ struct ProfileBarView<Content: View>: View {
 
 #Preview {
     
-    @Bindable var userViewModel = UserViewModel(
-        delegate: MockUserViewModelDelegate(
+    @Bindable var userViewModel = HomeViewModel(
+        delegate: MockHomeViewModelDelegate(
             userDataSource: UserManager(service: UserNetworkService())
         )
     )
